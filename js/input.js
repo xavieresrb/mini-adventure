@@ -5,38 +5,33 @@ const KEYS = {
     RIGHT: 39,
     DOWN: 40,
   },
-  WASD: {
-    W: 87,
-    A: 65,
-    S: 83,
-    D: 68,
-  },
 };
 
 let mouseX = 0;
 let mouseY = 0;
 
-function keySet(event, warrior, setTo) {
-  if (event.keyCode === warrior.keyControl.left) {
-    warrior.keyHeld.turnLeft = setTo;
+function keySet(event, setTo) {
+  console.log('event works', event.keyCode);
+  if (event.keyCode === blueWarrior.keyControl.north) {
+    blueWarrior.keyHeld.north = setTo;
   }
-  if (event.keyCode === warrior.keyControl.right) {
-    warrior.keyHeld.turnRight = setTo;
+  if (event.keyCode === blueWarrior.keyControl.east) {
+    blueWarrior.keyHeld.east = setTo;
   }
-  if (event.keyCode === warrior.keyControl.up) {
-    warrior.keyHeld.gas = setTo;
+  if (event.keyCode === blueWarrior.keyControl.south) {
+    blueWarrior.keyHeld.south = setTo;
   }
-  if (event.keyCode === warrior.keyControl.down) {
-    warrior.keyHeld.reverse = setTo;
+  if (event.keyCode === blueWarrior.keyControl.west) {
+    blueWarrior.keyHeld.west = setTo;
   }
 }
 
 function keyPressed(event) {
-  keySet(event, warrior, true);
+  keySet(event, true);
 }
 
 function keyReleased(event) {
-  keySet(event, warrior, false);
+  keySet(event, false);
 }
 
 function setupInput() {
@@ -44,11 +39,11 @@ function setupInput() {
   document.addEventListener('keydown', keyPressed);
   document.addEventListener('keyup', keyReleased);
 
-  warrior.setupInput({
-    up: KEYS.ARROWS.UP,
-    right: KEYS.ARROWS.RIGHT,
-    down: KEYS.ARROWS.DOWN,
-    left: KEYS.ARROWS.LEFT,
+  blueWarrior.setupInput({
+    north: KEYS.ARROWS.UP,
+    east: KEYS.ARROWS.RIGHT,
+    south: KEYS.ARROWS.DOWN,
+    west: KEYS.ARROWS.LEFT,
   });
 }
 

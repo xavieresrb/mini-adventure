@@ -1,4 +1,4 @@
-const TRACK = {
+const WORLD = {
   ROAD: 0,
   WALL: 1,
   PLAYER_START: 2,
@@ -7,11 +7,11 @@ const TRACK = {
   FLAG: 5,
 };
 
-const TRACK_W = 40;
-const TRACK_H = 40;
-const TRACK_COLS = 20;
-const TRACK_ROWS = 15;
-const TRACK_GAP = 2;
+const WORLD_W = 40;
+const WORLD_H = 40;
+const WORLD_COLS = 20;
+const WORLD_ROWS = 15;
+const WORLD_GAP = 2;
 
 // prettier-ignore
 const LEVEL_ONE = [
@@ -32,66 +32,62 @@ const LEVEL_ONE = [
         4, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 4
       ];
 
-let trackGrid;
+let worldGrid;
 
 function colRowToIndex(col, row) {
-  return TRACK_COLS * row + col;
+  return WORLD_COLS * row + col;
 }
 
 function posXToCol(posX) {
-  return Math.floor(posX / TRACK_W);
+  return Math.floor(posX / WORLD_W);
 }
 
 function posYToRow(posY) {
-  return Math.floor(posY / TRACK_H);
+  return Math.floor(posY / WORLD_H);
 }
 
 function getTileTypeAtColRow(col, row) {
-  if (col >= 0 && col < TRACK_COLS && row >= 0 && row < TRACK_ROWS) {
-    const trackIndex = colRowToIndex(col, row);
-
-    return trackGrid[trackIndex];
+  if (col >= 0 && col < WORLD_COLS && row >= 0 && row < WORLD_ROWS) {
+    var worldIndexUnderCoord = colRowToIndex(col, row);
+    return worldGrid[worldIndexUnderCoord];
+  } else {
+    return WORLD_WALL;
   }
-  return TRACK.WALL;
 }
 
-function warriorTrackHandler(warrior) {
-  const warriorTrackCol = posXToCol(warrior.x);
-  const warriorTrackRow = posYToRow(warrior.y);
+function getTileTypeAtPositionXY(x, y) {
+  const warriorCol = posXToCol(x);
+  const warriorRow = posYToRow(y);
 
   if (
-    warriorTrackCol >= 0 &&
-    warriorTrackCol < TRACK_COLS &&
-    warriorTrackRow >= 0 &&
-    warriorTrackRow < TRACK_ROWS
+    warriorCol >= 0 &&
+    warriorCol < WORLD_COLS &&
+    warriorRow >= 0 &&
+    warriorRow < WORLD_ROWS
   ) {
-    const tileHere = getTileTypeAtColRow(warriorTrackCol, warriorTrackRow);
-    if (tileHere === TRACK.GOAL) {
-      console.log(`${warrior.name} has WOOOOOOON!!!`);
-      loadLevel(LEVEL_ONE);
-    } else if (tileHere !== TRACK.ROAD) {
-      warrior.x = warrior.x - Math.cos(warrior.angle) * warrior.speed;
-      warrior.y = warrior.y - Math.sin(warrior.angle) * warrior.speed;
-      warrior.speed *= -0.5;
-    }
-  }
+    const tileHere = getTileTypeAtColRow(warriorCol, warriorRow);
+
+    return tileHere;
+  } // end of valid col and row
+
+  return WORLD_WALL;
 }
 
-function drawTracks() {
+function drawWorld() {
   let index = 0;
   let drawTileX = 0;
   let drawTileY = 0;
 
-  for (let row = 0; row < TRACK_ROWS; row++) {
-    for (let col = 0; col < TRACK_COLS; col++) {
-      const tileType = trackGrid[index];
-      const imgCandidate = trackPics[tileType];
+  for (let row = 0; row < WORLD_ROWS; row++) {
+    for (let col = 0; col < WORLD_COLS; col++) {
+      const tileType = worldGrid[index];
+      const imgCandidate = worldPics[tileType];
 
       canvasContext.drawImage(imgCandidate, drawTileX, drawTileY);
-      drawTileX = drawTileX + TRACK_W;
+      drawTileX = drawTileX + WORLD_W;
       index = index + 1;
     }
     drawTileX = 0;
-    drawTileY = drawTileY + TRACK_H;
+    drawTileY = drawTileY + WORLD_H;
   }
 }

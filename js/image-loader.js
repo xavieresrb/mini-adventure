@@ -1,6 +1,6 @@
 const warriorPic = document.createElement('img');
 
-const trackPics = [];
+const worldPics = [];
 
 const IMAGES_FOLDER = 'images';
 const IMAGES_LIST = [
@@ -9,24 +9,24 @@ const IMAGES_LIST = [
     fileName: 'warrior.png',
   },
   {
-    trackType: TRACK.ROAD,
-    fileName: 'track_road.png',
+    worldType: WORLD.ROAD,
+    fileName: 'world_road.png',
   },
   {
-    trackType: TRACK.WALL,
-    fileName: 'track_wall.png',
+    worldType: WORLD.WALL,
+    fileName: 'world_wall.png',
   },
   {
-    trackType: TRACK.GOAL,
-    fileName: 'track_goal.png',
+    worldType: WORLD.GOAL,
+    fileName: 'world_goal.png',
   },
   {
-    trackType: TRACK.TREE,
-    fileName: 'track_tree.png',
+    worldType: WORLD.TREE,
+    fileName: 'world_tree.png',
   },
   {
-    trackType: TRACK.FLAG,
-    fileName: 'track_flag.png',
+    worldType: WORLD.FLAG,
+    fileName: 'world_flag.png',
   },
 ];
 
@@ -46,16 +46,16 @@ function loadImages() {
     image.src = `${IMAGES_FOLDER}/${fileName}`;
   }
 
-  function setTrackImage(trackType, fileName) {
-    trackPics[trackType] = document.createElement('img');
-    setImage(trackPics[trackType], fileName);
+  function setWorldImage(worldType, fileName) {
+    worldPics[worldType] = document.createElement('img');
+    setImage(worldPics[worldType], fileName);
   }
 
   IMAGES_LIST.forEach((img) => {
     if (img.varName) {
       setImage(img.varName, img.fileName);
     } else {
-      setTrackImage(img.trackType, img.fileName);
+      setWorldImage(img.worldType, img.fileName);
     }
   });
 }

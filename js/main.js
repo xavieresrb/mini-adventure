@@ -2,7 +2,7 @@ const FRAMES_PER_SECOND = 30;
 
 let canvas, canvasContext;
 
-let warrior = new warriorClass();
+let blueWarrior = new warriorClass();
 
 window.onload = function () {
   canvas = document.getElementById('gameCanvas');
@@ -20,21 +20,21 @@ function launchGame() {
 }
 
 function loadLevel(levelMap) {
-  trackGrid = [...levelMap];
+  worldGrid = [...levelMap];
 
-  warrior.reset(warriorPic, 'Warrior');
+  blueWarrior.reset(warriorPic, 'Warrior');
 }
 
 function moveAll() {
-  warrior.move();
+  blueWarrior.move();
 }
 
 function logData() {
-  const mouseTrackCol = Math.floor(mouseX / TRACK_W);
-  const mouseTrackRow = Math.floor(mouseY / TRACK_H);
-  const index = colRowToIndex(mouseTrackCol, mouseTrackRow);
+  const mouseWorldCol = Math.floor(mouseX / WORLD_W);
+  const mouseWorldRow = Math.floor(mouseY / WORLD_H);
+  const index = colRowToIndex(mouseWorldCol, mouseWorldRow);
   colorText(
-    `i=${index};b=${mouseTrackCol},${mouseTrackRow};c=${mouseX},${mouseY}`,
+    `i=${index};b=${mouseWorldCol},${mouseWorldRow};c=${mouseX},${mouseY}`,
     mouseX,
     mouseY,
     'yellow'
@@ -42,8 +42,8 @@ function logData() {
 }
 
 function drawAll() {
-  drawTracks();
-  warrior.draw();
+  drawWorld();
+  blueWarrior.draw();
   logData();
 }
 
