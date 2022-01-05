@@ -1,12 +1,12 @@
-const carPic = document.createElement('img');
+const warriorPic = document.createElement('img');
 
 const trackPics = [];
 
 const IMAGES_FOLDER = 'images';
 const IMAGES_LIST = [
   {
-    varName: carPic,
-    fileName: 'player1car.png',
+    varName: warriorPic,
+    fileName: 'warrior.png',
   },
   {
     trackType: TRACK.ROAD,

@@ -55,24 +55,24 @@ function getTileTypeAtColRow(col, row) {
   return TRACK.WALL;
 }
 
-function carTrackHandler(car) {
-  const carTrackCol = posXToCol(car.x);
-  const carTrackRow = posYToRow(car.y);
+function warriorTrackHandler(warrior) {
+  const warriorTrackCol = posXToCol(warrior.x);
+  const warriorTrackRow = posYToRow(warrior.y);
 
   if (
-    carTrackCol >= 0 &&
-    carTrackCol < TRACK_COLS &&
-    carTrackRow >= 0 &&
-    carTrackRow < TRACK_ROWS
+    warriorTrackCol >= 0 &&
+    warriorTrackCol < TRACK_COLS &&
+    warriorTrackRow >= 0 &&
+    warriorTrackRow < TRACK_ROWS
   ) {
-    const tileHere = getTileTypeAtColRow(carTrackCol, carTrackRow);
+    const tileHere = getTileTypeAtColRow(warriorTrackCol, warriorTrackRow);
     if (tileHere === TRACK.GOAL) {
-      console.log(`${car.name} has WOOOOOOON!!!`);
+      console.log(`${warrior.name} has WOOOOOOON!!!`);
       loadLevel(LEVEL_ONE);
     } else if (tileHere !== TRACK.ROAD) {
-      car.x = car.x - Math.cos(car.angle) * car.speed;
-      car.y = car.y - Math.sin(car.angle) * car.speed;
-      car.speed *= -0.5;
+      warrior.x = warrior.x - Math.cos(warrior.angle) * warrior.speed;
+      warrior.y = warrior.y - Math.sin(warrior.angle) * warrior.speed;
+      warrior.speed *= -0.5;
     }
   }
 }

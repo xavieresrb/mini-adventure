@@ -16,27 +16,27 @@ const KEYS = {
 let mouseX = 0;
 let mouseY = 0;
 
-function keySet(event, car, setTo) {
-  if (event.keyCode === car.keyControl.left) {
-    car.keyHeld.turnLeft = setTo;
+function keySet(event, warrior, setTo) {
+  if (event.keyCode === warrior.keyControl.left) {
+    warrior.keyHeld.turnLeft = setTo;
   }
-  if (event.keyCode === car.keyControl.right) {
-    car.keyHeld.turnRight = setTo;
+  if (event.keyCode === warrior.keyControl.right) {
+    warrior.keyHeld.turnRight = setTo;
   }
-  if (event.keyCode === car.keyControl.up) {
-    car.keyHeld.gas = setTo;
+  if (event.keyCode === warrior.keyControl.up) {
+    warrior.keyHeld.gas = setTo;
   }
-  if (event.keyCode === car.keyControl.down) {
-    car.keyHeld.reverse = setTo;
+  if (event.keyCode === warrior.keyControl.down) {
+    warrior.keyHeld.reverse = setTo;
   }
 }
 
 function keyPressed(event) {
-  keySet(event, blueCar, true);
+  keySet(event, warrior, true);
 }
 
 function keyReleased(event) {
-  keySet(event, blueCar, false);
+  keySet(event, warrior, false);
 }
 
 function setupInput() {
@@ -44,7 +44,7 @@ function setupInput() {
   document.addEventListener('keydown', keyPressed);
   document.addEventListener('keyup', keyReleased);
 
-  blueCar.setupInput({
+  warrior.setupInput({
     up: KEYS.ARROWS.UP,
     right: KEYS.ARROWS.RIGHT,
     down: KEYS.ARROWS.DOWN,

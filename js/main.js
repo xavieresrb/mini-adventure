@@ -2,7 +2,7 @@ const FRAMES_PER_SECOND = 30;
 
 let canvas, canvasContext;
 
-let blueCar = new carClass();
+let warrior = new warriorClass();
 
 window.onload = function () {
   canvas = document.getElementById('gameCanvas');
@@ -22,11 +22,11 @@ function launchGame() {
 function loadLevel(levelMap) {
   trackGrid = [...levelMap];
 
-  blueCar.reset(carPic, 'Blue car');
+  warrior.reset(warriorPic, 'Warrior');
 }
 
 function moveAll() {
-  blueCar.move();
+  warrior.move();
 }
 
 function logData() {
@@ -43,7 +43,7 @@ function logData() {
 
 function drawAll() {
   drawTracks();
-  blueCar.draw();
+  warrior.draw();
   logData();
 }
 

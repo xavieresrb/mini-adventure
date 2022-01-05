@@ -1,18 +1,18 @@
-const CAR_SIZE = 14;
-const CAR_RADIUS = CAR_SIZE / 2;
+const WARRIOR_SIZE = 14;
+const WARRIOR_RADIUS = WARRIOR_SIZE / 2;
 const GROUND_SPEED_DECAY_MULT = 0.95;
 const DRIVE_POWER = 0.5;
 const REVERSE_POWER = 0.2;
 const TURN_RATE = 0.06;
 const MIN_SPEED_TO_TURN = 0.5;
 
-function carClass() {
+function warriorClass() {
   this.x = 175;
   this.y = 175;
   this.angle = 0;
   this.speed = 0;
   this.image;
-  this.name = 'Untitled car';
+  this.name = 'Untitled warrior';
 
   this.keyHeld = {
     gas: false,
@@ -30,9 +30,9 @@ function carClass() {
     };
   };
 
-  this.reset = function (image, carName) {
+  this.reset = function (image, warriorName) {
     this.image = image;
-    this.name = carName;
+    this.name = warriorName;
     this.speed = 0;
     this.angle = -Math.PI / 2;
     for (let row = 0; row < TRACK_ROWS; row++) {
@@ -72,7 +72,7 @@ function carClass() {
     this.x = this.x + Math.cos(this.angle) * this.speed;
     this.y = this.y + Math.sin(this.angle) * this.speed;
 
-    carTrackHandler(this);
+    warriorTrackHandler(this);
   };
 
   this.draw = function () {
