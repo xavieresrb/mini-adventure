@@ -1,11 +1,13 @@
 const WORLD = {
-  ROAD: 0,
+  GROUND: 0,
   WALL: 1,
   PLAYER_START: 2,
   GOAL: 3,
-  TREE: 4,
-  FLAG: 5,
+  KEY: 4,
+  DOOR: 5,
 };
+
+const TILES_WITH_TRANSPARENCY = [WORLD.GOAL, WORLD.KEY, WORLD.DOOR];
 
 const WORLD_W = 50;
 const WORLD_H = 50;
@@ -23,8 +25,8 @@ const LEVEL_ONE = [
   1, 0, 0, 1, 1, 0, 0, 1, 4, 4, 1, 1, 0, 0, 0, 1,
   1, 0, 0, 1, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 1,
   1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 5, 0, 1,
-  1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1,
-  1, 2, 0, 1, 0, 0, 5, 0, 0, 0, 5, 0, 0, 1, 0, 1,
+  1, 2, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1,
+  1, 0, 0, 1, 0, 0, 5, 0, 0, 0, 5, 0, 0, 1, 0, 1,
   1, 0, 0, 1, 3, 3, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1,
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 ];
@@ -48,7 +50,7 @@ function getTileTypeAtColRow(col, row) {
     var worldIndexUnderCoord = colRowToIndex(col, row);
     return worldGrid[worldIndexUnderCoord];
   } else {
-    return WORLD_WALL;
+    return WORLD.WALL;
   }
 }
 
@@ -67,7 +69,11 @@ function getTileTypeAtPositionXY(x, y) {
     return tileHere;
   } // end of valid col and row
 
-  return WORLD_WALL;
+  return WORLD.WALL;
+}
+
+function tileTypeHasTransparency(tileType) {
+  return TILES_WITH_TRANSPARENCY.includes(tileType);
 }
 
 function drawWorld() {
@@ -80,7 +86,16 @@ function drawWorld() {
       const tileType = worldGrid[index];
       const imgCandidate = worldPics[tileType];
 
-      canvasContext.drawImage(imgCandidate, drawTileX, drawTileY);
+      if (tileTypeHasTransparency(tileType)) {
+        canvasContext.drawImage(worldPics[WORLD.GROUND], drawTileX, drawTileY);
+      }
+
+      if (imgCandidate) {
+        canvasContext.drawImage(imgCandidate, drawTileX, drawTileY);
+      } else {
+        console.log('Warning: Invalid tile type in index', index, 'row', row, 'col', col);
+      }
+
       drawTileX = drawTileX + WORLD_W;
       index = index + 1;
     }

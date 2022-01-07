@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 3.0;
+const PLAYER_MOVE_SPEED = 15.0;
 
 function warriorClass() {
   this.x = 175;
@@ -32,7 +32,7 @@ function warriorClass() {
         const index = colRowToIndex(col, row);
 
         if (worldGrid[index] === WORLD.PLAYER_START) {
-          worldGrid[index] = WORLD.ROAD;
+          worldGrid[index] = WORLD.GROUND;
 
           this.x = col * WORLD_W + WORLD_W / 2;
           this.y = row * WORLD_H + WORLD_H / 2;
@@ -65,7 +65,7 @@ function warriorClass() {
     if (walkIntoTileIndex === WORLD.GOAL) {
       console.log(this.name + ' has completed the level!');
       loadLevel(LEVEL_ONE);
-    } else if (walkIntoTileIndex === WORLD.ROAD) {
+    } else if (walkIntoTileIndex === WORLD.GROUND) {
       this.x = nextX;
       this.y = nextY;
     }

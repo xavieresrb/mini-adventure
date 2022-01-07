@@ -9,8 +9,8 @@ const IMAGES_LIST = [
     fileName: 'warrior.png',
   },
   {
-    worldType: WORLD.ROAD,
-    fileName: 'world_road.png',
+    worldType: WORLD.GROUND,
+    fileName: 'world_ground.png',
   },
   {
     worldType: WORLD.WALL,
@@ -21,12 +21,12 @@ const IMAGES_LIST = [
     fileName: 'world_goal.png',
   },
   {
-    worldType: WORLD.TREE,
-    fileName: 'world_tree.png',
+    worldType: WORLD.KEY,
+    fileName: 'world_key.png',
   },
   {
-    worldType: WORLD.FLAG,
-    fileName: 'world_flag.png',
+    worldType: WORLD.DOOR,
+    fileName: 'world_door.png',
   },
 ];
 
