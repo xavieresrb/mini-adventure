@@ -6,6 +6,7 @@ function warriorClass() {
 
   this.image;
   this.name = 'Untitled warrior';
+  this.warriorKeysHeld = 0;
 
   this.keyHeld = {
     north: false,
@@ -26,6 +27,7 @@ function warriorClass() {
   this.reset = function (image, warriorName) {
     this.image = image;
     this.name = warriorName;
+    this.warriorKeysHeld = 0;
 
     for (let row = 0; row < WORLD_ROWS; row++) {
       for (let col = 0; col < WORLD_COLS; col++) {
@@ -41,6 +43,10 @@ function warriorClass() {
       }
     }
     console.log('Warning: no player start found!');
+  };
+
+  this.updateKeyReadout = function () {
+    document.getElementById('debugText').innerHTML = 'Keys: ' + this.warriorKeysHeld;
   };
 
   this.move = function () {
@@ -60,14 +66,25 @@ function warriorClass() {
       nextX = nextX - PLAYER_MOVE_SPEED;
     }
 
-    const walkIntoTileIndex = getTileTypeAtPositionXY(nextX, nextY);
+    const walkIntoTileTypeIndex = getTileTypeAtPositionXY(nextX, nextY);
+    const walkIntoTileIndex = posXYtoIndex(nextX, nextY);
 
-    if (walkIntoTileIndex === WORLD.GOAL) {
+    if (walkIntoTileTypeIndex === WORLD.GOAL) {
       console.log(this.name + ' has completed the level!');
       loadLevel(LEVEL_ONE);
-    } else if (walkIntoTileIndex === WORLD.GROUND) {
+    } else if (walkIntoTileTypeIndex === WORLD.GROUND) {
       this.x = nextX;
       this.y = nextY;
+    } else if (walkIntoTileTypeIndex === WORLD.DOOR) {
+      if (this.warriorKeysHeld > 0) {
+        this.warriorKeysHeld = this.warriorKeysHeld - 1;
+        this.updateKeyReadout();
+        worldGrid[walkIntoTileIndex] = WORLD.GROUND;
+      }
+    } else if (walkIntoTileTypeIndex === WORLD.KEY) {
+      this.warriorKeysHeld = this.warriorKeysHeld + 1;
+      this.updateKeyReadout();
+      worldGrid[walkIntoTileIndex] = WORLD.GROUND;
     }
   };
 
